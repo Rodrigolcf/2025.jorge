@@ -20,11 +20,16 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Piada
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Busca()
         {
-            return View(await _context.Piada.ToListAsync());
+            return View();
         }
 
+        public async Task<IActionResult> ShowSearchResults(String TermoDeBusca)
+        {
+            List<Piada> piadas = await _context.Piada.Where(f => f.Pergunta.Contains(TermoDeBusca)).ToListAsync();
+            return View("Index", piadas);
+        }
         // GET: Piada/Details/5
         public async Task<IActionResult> Details(int? id)
         {
